@@ -1,0 +1,97 @@
+﻿@page
+@model Programare_medic.Pages.Servicii.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="cutie">
+
+<h1>Edit</h1>
+
+<h4>Serviciu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Serviciu.ID" />
+            <div class="form-group">
+                <label asp-for="Serviciu.Denumire_Serviciu" class="control-label"></label>
+                <input asp-for="Serviciu.Denumire_Serviciu" class="form-control" />
+                <span asp-validation-for="Serviciu.Denumire_Serviciu" class="text-danger"></span>
+            </div>
+            <!--
+            <div class="form-group">
+                <label asp-for="Serviciu.Medic" class="control-label"></label>
+                <input asp-for="Serviciu.Medic" class="form-control" />
+                <span asp-validation-for="Serviciu.Medic" class="text-danger"></span>
+            </div>
+            -->
+            <div class="form-group">
+                <label asp-for="Serviciu.Cost_consultatie" class="control-label"></label>
+                <input asp-for="Serviciu.Cost_consultatie" class="form-control" />
+                <span asp-validation-for="Serviciu.Cost_consultatie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Serviciu.Data_Programare" class="control-label"></label>
+                <input asp-for="Serviciu.Data_Programare" class="form-control" />
+                <span asp-validation-for="Serviciu.Data_Programare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Serviciu.SpitalID" class="control-label">Denumire Spital</label>
+                <select asp-for="Serviciu.SpitalID" class="form-control" asp-items="ViewBag.SpitalID"> </select>
+                <span asp-validation-for="Serviciu.SpitalID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Serviciu.MedicID" class="control-label">Nume medic</label>
+                <select asp-for="Serviciu.MedicID" class="form-control" asp-items="ViewBag.MedicID">
+                </select>
+                <span asp-validation-for="Serviciu.MedicID" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                             @{
+                                 int cnt = 0;
+                                 foreach (var cat in Model.SectieAtribuitaServiciuList)
+                                 {
+                                     if (cnt++ % 3 == 0)
+                                     {
+                                         @:</tr><tr>
+                                     }
+                                     @:<td>
+                                         <input type="radio"
+                                             name="selectedSectii"
+                                             value="@cat.SectieID"
+                                             @(Html.Raw(cat.Atribuire ?
+                                                 "checked=\"checked\"" : "")) />
+                                         @cat.SectieID @: @cat.Denumire
+                                     @:</td>
+                                 }
+                             @:</tr>
+                             }
+                    </table>
+                </div>
+             </div>
+
+                      
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
